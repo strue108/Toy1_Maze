@@ -132,6 +132,7 @@
     <ClInclude Include="MazeUI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="MazeEditor.cpp" />
     <ClCompile Include="MazeUI.cpp" />
