@@ -2,7 +2,7 @@
 
 std::vector<std::pair<int, int>> setDirections() {
 	// 상하좌우 벡터
-	std::vector<std::pair<int, int>> directions{ {-1,0}, {1,0}, {0,-1}, {0,1} };
+	std::vector<std::pair<int, int>> directions{ { -1,0 },{ 1,0 },{ 0,-1 },{ 0,1 } };
 
 	// 난수 생성
 	std::random_device rd;
@@ -13,6 +13,7 @@ std::vector<std::pair<int, int>> setDirections() {
 	return directions;
 }
 
+
 void Maze::make()
 {
 	std::vector<std::vector<bool>> tmp(getHeight(), std::vector<bool>(getWidth(), false));
@@ -20,6 +21,11 @@ void Maze::make()
 	startPoint = { 0,0 };
 	grid[startPoint.first][startPoint.second] = true;
 	mazeMaker(startPoint.first, startPoint.second);
+
+	startPoint = getBlankSpace();
+	std::cout << startPoint.first << " " << startPoint.second << std::endl;
+	endPoint = getBlankSpace();
+	std::cout << endPoint.first << " " << endPoint.second << std::endl;
 }
 
 void Maze::print() const
@@ -33,6 +39,26 @@ void Maze::print() const
 		}
 		std::cout << std::endl;
 	}
+}
+
+std::pair<int, int> Maze::getBlankSpace() const
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+
+	std::uniform_int_distribution<> dist(0, getWidth() * getHeight() - 1);
+	int x, y;
+
+	while (1) {
+		int rd = dist(gen);
+		
+		x = (rd) % getWidth();
+		y = (rd) / getWidth();
+		if (grid[y][x])
+			break;
+	}
+
+	return { x,y };
 }
 
 //재귀적으로 구현한 dfs
